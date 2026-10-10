@@ -1,0 +1,17 @@
+.DS_Store
+/.build
+/Packages
+xcuserdata/
+DerivedData/
+.swiftpm/configuration/registries.json
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+.netrc
+
+# Agent workbench state
+.freebuff/
+.vscode/
+
+# VitePress
+docs/node_modules
+docs/.vitepress/dist
+docs/.vitepress/cache

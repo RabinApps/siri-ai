@@ -1,0 +1,27 @@
+[
+  {
+    "final" : "It’s 144.",
+    "prompt" : "what is 12 times 12",
+    "raws" : " It’s 144.  \nIt’s 144.\n12 × 12 =\n144\n0\n```\n It’s 144.  \nIt’s 144.\n12 × 12 =\n144\n0\n```\n It’s 144.  \nIt’s 144.\n12 × 12 =\n144\n0"
+  },
+  {
+    "final" : "The capital of Japan is Tokyo.\nThe city became the nation's official capital in 1868 during the Meiji Restoration, when Emperor Meiji moved the imperial seat from Kyoto to Edo and renamed it Tokyo, meaning \"eastern capital\".",
+    "prompt" : "what is the capital of Japan",
+    "raws" : " The capital of Japan is Tokyo.  Tokyo The city became the nation's official capital in 1868 during the Meiji Restoration, when Emperor Meiji moved the imperial seat from Kyoto to Edo and renamed it Tokyo, meaning \"eastern capital\".  \nThe capital of Japan is Tokyo.\nTokyo\nThe city became the nation's official capital in 1868 during the Meiji Restoration, when Emperor Meiji moved the imperial seat from Kyoto to Edo and renamed it Tokyo, meaning \"eastern capital\".\n0\n```\n The capital of Japan is Tokyo.  Tokyo The city became the nation's official capital in 1868 during the Meiji Restoration, when Emperor Meiji moved the imperial seat from Kyoto to Edo and renamed it Tokyo, meaning \"eastern capital\".  \nThe capital of Japan is Tokyo.\nTokyo\nThe city became the nation's official capital in 1868 during the Meiji Restoration, when Emperor Meiji moved the imperial seat from Kyoto to Edo and renamed it Tokyo, meaning \"eastern capital\".\n0\n```\n The capital of Japan is Tokyo.  Tokyo The city became the nation's official capital in 1868 during the Meiji Restoration, when Emperor Meiji moved the imperial seat from Kyoto to Edo and renamed it Tokyo, meaning \"eastern capital\".  \nThe capital of Japan is Tokyo.\nTokyo\nThe city became the nation's official capital in 1868 during the Meiji Restoration, when Emperor Meiji moved the imperial seat from Kyoto to Edo and renamed it Tokyo, meaning \"eastern capital\".\n0"
+  },
+  {
+    "final" : "William Shakespeare wrote Romeo and Juliet.",
+    "prompt" : "who wrote Romeo and Juliet",
+    "raws" : " William Shakespeare wrote Romeo and Juliet.  \nWilliam Shakespeare wrote Romeo and Juliet.\n0\n```\n William Shakespeare wrote Romeo and Juliet.  \nWilliam Shakespeare wrote Romeo and Juliet.\n0\n```\n William Shakespeare wrote Romeo and Juliet.  \nWilliam Shakespeare wrote Romeo and Juliet.\n0"
+  },
+  {
+    "final" : "The Moon is slowly drifting away from Earth at a rate of about 1.5 inches per year.",
+    "prompt" : "tell me a one-sentence fun fact about the moon",
+    "raws" : " The Moon is slowly drifting away from Earth at a rate of about 1.5 inches per year.  Moon \nThe Moon is slowly drifting away from Earth at a rate of about 1.5 inches per year.\nMoon\n0\n```\n The Moon is slowly drifting away from Earth at a rate of about 1.5 inches per year.  Moon \nThe Moon is slowly drifting away from Earth at a rate of about 1.5 inches per year.\nMoon\n0\n```\n The Moon is slowly drifting away from Earth at a rate of about 1.5 inches per year.  Moon \nThe Moon is slowly drifting away from Earth at a rate of about 1.5 inches per year.\nMoon\n0"
+  },
+  {
+    "final" : "The answer is 102.",
+    "prompt" : "what is 85 plus 17",
+    "raws" : " The answer is 102.  \nThe answer is 102.\n85 + 17 =\n102\n0\n```\n The answer is 102.  \nThe answer is 102.\n85 + 17 =\n102\n0\n```\n The answer is 102.  \nThe answer is 102.\n85 + 17 =\n102\n0"
+  }
+]

@@ -1,0 +1,6 @@
+/*
+ * Custom styles for the siri-ai docs theme.
+ *
+ * The typewriter under the hero tagline is styled inside its own SFC
+ * (NavTypewriter.vue) with scoped CSS; this file holds only globals.
+ */

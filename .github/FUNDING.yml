@@ -1,0 +1,6 @@
+# Sponsor button configuration (shown in the repo header and via the "Sponsor" button)
+
+github: RabinApps
+buy_me_a_coffee: rabinapps
+custom:
+  - "https://www.paypal.com/donate/?hosted_button_id=YEJ37WF4Q3HPC"

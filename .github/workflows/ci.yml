@@ -1,0 +1,45 @@
+name: CI
+
+# Extracted straight from docs/guide/release-workflow.md Step 1: the
+# deterministic tier and the docs build run on every push/PR so those gates
+# are enforced rather than trusted. The live tier and orphaned-process check
+# (Steps 0/3) need a real Siri + Apple Intelligence machine and stay manual —
+# see the release-workflow guide for the pre-tag checklist a release host
+# runs on hardware.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Gated tests: the deterministic tier never sets LIVE_TESTS, so CI runs it
+# fully offline green — no Siri session, no Apple Intelligence needed.
+env:
+  LIVE_TESTS: "0"
+
+jobs:
+  deterministic-tier:
+    name: build + tests (deterministic tier)
+    runs-on: macos-26
+    # The toolchain requirement is Swift 6.4 / Xcode 26+ (docs/guide/getting-started.md):
+    # macos-26 ships Xcode 26.6 by default, which satisfies it.
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: swift build
+      - name: Test
+        run: swift test
+
+  docs-build:
+    name: docs (vitepress build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: docs/package-lock.json
+      - name: Docs build
+        working-directory: docs
+        run: npm ci && npm run build
