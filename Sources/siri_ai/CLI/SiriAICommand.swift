@@ -514,20 +514,31 @@ struct Status: AsyncParsableCommand {
     )
 
     mutating func run() async throws {
+        // Each live-backend probe gets a hard deadline: on headless/CI macOS
+        // runners an availability probe has been observed to spin forever
+        // (the CI Test step reached 30+ minutes with no output from the
+        // probe). status must always finish — a wedged probe degrades to
+        // UNAVAILABLE with a diagnostic, it never hangs the CLI.
+        let probeDeadline = 15.0
+        func probed(_ name: String, _ probe: @escaping @Sendable () async -> AvailabilityReport) async -> String {
+            do {
+                let report = try await withInferenceDeadline(probeDeadline, probe)
+                return "\(name): \(report.ready ? "OK" : "UNAVAILABLE") — \(report.detail)"
+            } catch {
+                return "\(name):  UNAVAILABLE — probe did not complete within \(Int(probeDeadline))s (\(error))"
+            }
+        }
+
         TerminalOutput.line("system: \(HostInfo.summary)")
-        let apple = await AppIntelligenceEngine().availability
-        TerminalOutput.line("apple:  \(apple.ready ? "OK" : "UNAVAILABLE") — \(apple.detail)")
+        let appleLine = await probed("apple:") { await AppIntelligenceEngine().availability }
+        TerminalOutput.line(appleLine)
         // Repo-grounded answers are budgeted against this window
         // (ContextBuilder); show the machine's real value, not a hardcoded
         // spec — macOS 26 reports 4,096, macOS 27/newer hardware 8,192.
         let window = AppIntelligenceEngine.modelContextSize()
         TerminalOutput.line("window: \(window) tokens for repo-grounded context")
-        let siri = await SiriAXEngine().availability
-        TerminalOutput.line("siri:   \(siri.ready ? "OK" : "UNAVAILABLE") — \(siri.detail)")
-        if apple.ready || siri.ready {
-            TerminalOutput.line("")
-            TerminalOutput.line("All good. Try: siri-ai ask \"explain this repo\" --repo .")
-        }
+        let siriLine = await probed("siri:") { await SiriAXEngine().availability }
+        TerminalOutput.line(siriLine)
     }
 }
 
