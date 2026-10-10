@@ -20,9 +20,11 @@ env:
 jobs:
   deterministic-tier:
     name: build + tests (deterministic tier)
-    runs-on: macos-26
-    # The toolchain requirement is Swift 6.4 / Xcode 26+ (docs/guide/getting-started.md):
-    # macos-26 ships Xcode 26.6 by default, which satisfies it.
+    # Swift 6.4 toolchain: the macos-26 GA image ships SwiftPM 6.3.3 (Xcode
+    # 26.6), which rejects swift-tools-version 6.4 — the first CI run failed
+    # on exactly that. The xcode-27 image carries the 6.4 toolchain (public
+    # preview; swap to the GA equivalent when it ships).
+    runs-on: xcode-27
     steps:
       - uses: actions/checkout@v4
       - name: Build
