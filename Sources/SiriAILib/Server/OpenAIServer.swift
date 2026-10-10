@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// A minimal OpenAI-compatible HTTP server, spoken over localhost sockets.
 ///
@@ -310,23 +311,52 @@ public struct OpenAIServer: Sendable {
     /// (AppIntelligenceEngine/SiriAXEngine), so an override that wants to stub
     /// the default must return a stub for every resolve() branch — returning
     /// nil falls through to a live backend.
-    nonisolated(unsafe) static var routingOverride: (@Sendable (String) -> LLMEngine)?
+    nonisolated(unsafe) static var routingOverride: (@Sendable (String) -> (any LLMEngine)?)?
 
     @discardableResult
     static func setRoutingOverride(
         _ impl: @escaping @Sendable (String) -> LLMEngine?
     ) -> @Sendable () -> Void {
-        let previous = routingOverride
-        routingOverride = { model in
-            impl(model) ?? Self.defaultEngine(for: model)
+        // A captured stack, not a single `previous` slot: when two suites
+        // concurrently install and restore overrides (each `.serialized`
+        // within its own suite, but suites run in parallel), a plain
+        // capture-at-install restore would write back a stale value and
+        // clobber the OTHER suite's active override — the CI failure
+        // signature where a server test received the wrong engine. LIFO
+        // with a guard lock makes nesting order-independent.
+        routingStack.withLock { $0.append(impl) }
+        routingOverride = rebuiltOverride()
+        return { [routingStack] in
+            let stillActive: Bool = routingStack.withLock { stack -> Bool in
+                _ = stack.popLast()
+                return !stack.isEmpty
+            }
+            routingOverride = stillActive ? rebuiltOverride() : nil
         }
-        return { routingOverride = previous }
     }
+
+    /// Rebuilds the active override closure by chaining the stack: the LAST
+    /// entry installed is the one the caller expects to win; earlier entries
+    /// act as fallbacks beneath it (LIFO semantics made order-independent).
+    private static func rebuiltOverride() -> @Sendable (String) -> (any LLMEngine)? {
+        let stack = routingStack.withLock { $0 }
+        return { [stack] model in
+            for impl in stack.reversed() {
+                if let engine = impl(model) { return engine }
+            }
+            return nil
+        }
+    }
+
+    /// The override stack. Guarded by its own lock (an unfair lock is fine
+    /// at test-invocation rates).
+    private static let routingStack: OSAllocatedUnfairLock<[(@Sendable (String) -> (any LLMEngine)?)]> =
+        OSAllocatedUnfairLock(initialState: [])
 
     /// Model name → backend. "siri-ai" selects the Siri Accessibility engine;
     /// the default (and "apple-intelligence") selects the FoundationModels engine.
     static func engine(for model: String) -> LLMEngine {
-        if let routingOverride { return routingOverride(model) }
+        if let routingOverride, let engine = routingOverride(model) { return engine }
         return defaultEngine(for: model)
     }
 
