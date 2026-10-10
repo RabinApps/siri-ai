@@ -11,6 +11,45 @@ Mac.
 - Apple Intelligence enabled (System Settings → Apple Intelligence & Siri)
 - Swift 6.4+ / Xcode 26+
 
+## Install
+
+### Option A: build and install the CLI from source
+
+The package builds straight from this repository — no Homebrew formula or
+shell installer needed:
+
+```sh
+git clone https://github.com/RabinApps/siri-ai.git
+cd siri-ai
+swift build -c release
+mkdir -p ~/.local/bin
+ln -sf "$(pwd)/.build/release/siri_ai" ~/.local/bin/siri-ai
+```
+
+```sh
+# ensure ~/.local/bin is on PATH (zsh default shell):
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+Verify:
+
+```sh
+siri-ai status
+```
+
+The built binary is `siri_ai` (SwiftPM derives the underscore name from the
+executable target); installing it as `siri-ai` on your PATH gives you the
+spelled-out command used throughout these docs.
+
+### Option B: as a Swift package dependency (apps, not the CLI)
+
+```swift
+.package(url: "https://github.com/RabinApps/siri-ai.git", from: "0.1.0")
+```
+
+See [Embedding in a Swift app](/guide/swift-app-integration).
+
 ## Build
 
 ```sh

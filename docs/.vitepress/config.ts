@@ -2,6 +2,10 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  // Site is served from the repo's GitHub Pages subpath
+  // (https://rabinapps.github.io/siri-ai/). Build-time setting: change it if
+  // the site moves to a custom domain root.
+  base: '/siri-ai/',
   title: 'siri-ai',
   description:
     'Apple Intelligence and the real Siri AI app from your terminal. One Swift 6 binary — fully on-device, no API keys.',

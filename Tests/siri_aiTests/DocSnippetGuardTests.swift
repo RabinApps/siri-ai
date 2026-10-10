@@ -189,7 +189,11 @@ struct DocSnippetGuardTests {
         for snippet in snippets {
             // Manifest snippets (`import PackageDescription`) are Package.swift
             // files, not library code — out of scope for the module guard.
+            // The bare `.package(url:)` dependency line in Getting Started's
+            // install section is also a manifest fragment (documents how to
+            // add the package, not how to call the library).
             if snippet.code.contains("import PackageDescription") { continue }
+            if snippet.code.contains(".package(url:") && !snippet.code.contains("import SiriAILib") { continue }
             let result = try Self.compileSnippet(snippet, docsRoot: docsRoot)
             guard case .compilationFailed(let diagnostics) = result else { continue }
             let message = """
