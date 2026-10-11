@@ -16,6 +16,7 @@ The full documentation lives in the [`docs/`](docs/) directory, built with
 - [Getting Started](docs/guide/getting-started.md) — requirements, build, first steps
 - [Embedding in a Swift app](docs/guide/swift-app-integration.md) — use `siri-ai` as a package dependency from macOS apps
 - [Code examples](docs/guide/examples.md) — copy-paste-ready snippets for the library surface
+- [Agent skills](docs/guide/agent-skills.md) — use siri-ai as an on-device coding-agent subagent (`npx skills add RabinApps/siri-ai@siri-ai-subagent`) and consume its local OpenAI endpoint (`…@siri-ai-serve`)
 - [Permissions](docs/guide/permissions.md) — Accessibility & Screen Recording setup
 - [Repository Q&A & Editing](docs/guide/repo-editing.md) — `--repo`, `--tools`, `--edit`
 - [Fast typed decisions](docs/guide/fast-decisions.md) — the fast "System 1" routing pass

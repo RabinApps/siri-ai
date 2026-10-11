@@ -45,6 +45,7 @@ export default defineConfig({
           { text: 'Repository Q&A & Editing', link: '/guide/repo-editing' },
           { text: 'Fast typed decisions', link: '/guide/fast-decisions' },
           { text: 'Custom decision specs', link: '/guide/decision-specs' },
+          { text: 'Agent skills', link: '/guide/agent-skills' },
           { text: 'Permissions', link: '/guide/permissions' },
           { text: 'Testing & Fixtures', link: '/guide/testing' },
           { text: 'Release workflow', link: '/guide/release-workflow' },
