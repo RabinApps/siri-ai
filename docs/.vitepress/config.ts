@@ -73,7 +73,7 @@ export default defineConfig({
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2026 siri-ai contributors',
+      copyright: 'Copyright © 2026 Rabin Apps LLC',
     },
   },
 })

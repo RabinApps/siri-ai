@@ -33,3 +33,5 @@ features:
     title: Recorded fixtures
     details: AX session fixtures replay through the cleaner as regression tests — live-model tests stay opt-in via LIVE_TESTS=1.
 ---
+
+siri-ai is from **Rabin Apps LLC** · MIT License · 2026

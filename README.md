@@ -52,3 +52,8 @@ See [Getting Started](docs/guide/getting-started.md) for all install options.
 Requires macOS 26+ (macOS 27 for the Siri AI backend), Apple Silicon, Apple
 Intelligence enabled, and Swift 6.4+ / Xcode 26+. See
 [Getting Started](docs/guide/getting-started.md) for details.
+
+---
+
+siri-ai is a product of **Rabin Apps LLC**. Released under the
+[MIT License](LICENSE) · 2026.
