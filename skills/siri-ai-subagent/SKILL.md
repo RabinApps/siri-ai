@@ -31,7 +31,7 @@ siri-ai status
 - `apple: OK` → proceed with the default backend.
 - `siri: OK` → the Siri AI app backend is also available (macOS 27).
 - `UNAVAILABLE` → report the probe's detail line and stop; classic fixes are
-  [Permissions](https://rabinapps.github.io/siri-ai/guide/permissions/)
+  [Permissions](https://siri-ai.rabinapps.com/guide/permissions/)
   (Accessibility & Screen Recording, or `siri-ai permission`), Apple
   Intelligence enabled, and macOS 26+/Apple Silicon.
 
@@ -99,9 +99,9 @@ OpenAI or many components need the endpoint.
 | Signal | Meaning | Action |
 | --- | --- | --- |
 | exit 124 | `--max-seconds` deadline hit (wedged engine) | Retry once with a larger budget, then surface to the user |
-| `UNAVAILABLE` in `status` | Missing permission/model | Link the [Permissions guide](https://rabinapps.github.io/siri-ai/guide/permissions/), run `siri-ai permission` |
+| `UNAVAILABLE` in `status` | Missing permission/model | Link the [Permissions guide](https://siri-ai.rabinapps.com/guide/permissions/), run `siri-ai permission` |
 | empty stdout | No query reached the engine | Check the stderr diagnostic; `No candidate files found` means the repo root was wrong |
 
-Full docs: [CLI Reference](https://rabinapps.github.io/siri-ai/cli/) ·
-[Serve API](https://rabinapps.github.io/siri-ai/serve/) ·
-[Repository Q&A & Editing](https://rabinapps.github.io/siri-ai/guide/repo-editing)
+Full docs: [CLI Reference](https://siri-ai.rabinapps.com/cli/) ·
+[Serve API](https://siri-ai.rabinapps.com/serve/) ·
+[Repository Q&A & Editing](https://siri-ai.rabinapps.com/guide/repo-editing)

@@ -101,6 +101,35 @@ mirror convention: docs-site links stay `/guide/...`, docs/changelog links
 to the repo for anything non-mirrored). Rerun the docs build after renaming
 — the built site must still render.
 
+## Documentation custom domain
+
+The docs are configured for `https://siri-ai.rabinapps.com/`, with VitePress
+`base: '/'`. GitHub Pages uses the custom GitHub Actions workflow in
+`.github/workflows/docs-deploy.yml`; its custom domain must be set in the
+repository's **Settings → Pages**, not via a repository `CNAME` file (GitHub
+ignores that file for Actions-based publishing).
+
+DNS configuration at your provider:
+
+| Type | Name (in the `rabinapps.com` zone) | Target |
+| --- | --- | --- |
+| CNAME | `siri-ai` | `rabinapps.github.io` |
+
+The target must not include `/siri-ai`, a scheme, or any other path. Avoid
+wildcard records. GitHub recommends verifying domain ownership before
+adding the domain, and setting the repository's custom domain **before**
+adding its DNS record to reduce takeover risk.
+
+After committing and pushing the site configuration, wait for the Pages
+workflow to deploy. Check DNS with `dig siri-ai.rabinapps.com CNAME +noall
++answer`. Once DNS and GitHub's certificate provisioning are complete,
+enable **Enforce HTTPS** in Pages settings (availability may take up to
+24 hours), then check home, nested guide pages, assets and social images on
+the actual domain. Saving the custom domain alone does not publish the new
+build or prove that DNS/HTTPS are working.
+
+See [GitHub's custom-domain setup instructions](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
+
 ## Step 5 — tag
 
 ```sh

@@ -2,28 +2,26 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  // Site is served from the repo's GitHub Pages subpath
-  // (https://rabinapps.github.io/siri-ai/). Build-time setting: change it if
-  // the site moves to a custom domain root.
-  base: '/siri-ai/',
+  // The GitHub Pages custom subdomain serves this site at its root.
+  base: '/',
   title: 'siri-ai',
   description:
     'Apple Intelligence and the real Siri AI app from your terminal. One Swift 6 binary — fully on-device, no API keys.',
   // Absolute deploy origin for og:image / og:url (there is no runtime origin
   // to read in static-site land; update if the site ever moves domains).
-  socialBase: 'https://rabinapps.github.io/siri-ai',
+  socialBase: 'https://siri-ai.rabinapps.com',
 
   head: [
     ['meta', { name: 'theme-color', content: '#ff5d7d' }],
-    // Branded share card (image lives in docs/public/, copied to /siri-ai/ root)
-    ['meta', { property: 'og:image', content: 'https://rabinapps.github.io/siri-ai/og.png' }],
+    // Branded share card (image lives in docs/public/, copied to the site root)
+    ['meta', { property: 'og:image', content: 'https://siri-ai.rabinapps.com/og.png' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { property: 'og:image:alt', content: 'siri-ai — Apple Intelligence and the Siri AI app in your terminal' }],
     ['meta', { property: 'og:site_name', content: 'siri-ai' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { name: 'twitter:image', content: 'https://rabinapps.github.io/siri-ai/og.png' }],
+    ['meta', { name: 'twitter:image', content: 'https://siri-ai.rabinapps.com/og.png' }],
   ],
 
   themeConfig: {
@@ -105,7 +103,7 @@ export default defineConfig({
   // og:title and og:description need an origin-qualified absolute URL, which
   // the static build can't derive — so stamp them at build time.
   async transformHead({ pageData }) {
-    const base = 'https://rabinapps.github.io/siri-ai'
+    const base = 'https://siri-ai.rabinapps.com'
     // Directory-style URLs — what the site actually serves and what crawlers
     // expect (e.g. guide/foo.md → /guide/foo/, index.md → /).
     const dir = String(pageData.relativePath)

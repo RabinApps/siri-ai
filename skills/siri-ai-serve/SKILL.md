@@ -131,6 +131,6 @@ The API key is a placeholder — no auth is enforced (the server is
 loopback-only, so only local processes can reach it; do not expose it).
 
 References: serve CLI flags →
-[docs/cli/serve](https://rabinapps.github.io/siri-ai/cli/serve/) · full
+[docs/cli/serve](https://siri-ai.rabinapps.com/cli/serve/) · full
 request/response spec →
-[Serve API](https://rabinapps.github.io/siri-ai/serve/)
+[Serve API](https://siri-ai.rabinapps.com/serve/)
