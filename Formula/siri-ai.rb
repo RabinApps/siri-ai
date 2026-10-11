@@ -6,7 +6,7 @@ class SiriAi < Formula
   homepage "https://github.com/RabinApps/siri-ai"
   url "https://github.com/RabinApps/siri-ai.git",
       tag:      "v0.1.0",
-      revision: "fdd4d2a3c31e9791ade01a4f9b19afe2e2e3e14e"
+      revision: "fdd4d2a55832bf98e67d0140fc535833addb9b65"
   version "0.1.0"
   license "MIT"
   head "https://github.com/RabinApps/siri-ai.git", branch: "main"
