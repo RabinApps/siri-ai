@@ -37,7 +37,7 @@ siri-ai status
 > Note: building the Siri AI backend into the brew sandbox requires Homebrew
 > 4.4+; on older brew versions fall back to Option B (build from source).
 
-### Option C: build and install the CLI from source
+### Option B: build and install the CLI from source
 
 The package builds straight from this repository — no Homebrew formula or
 shell installer needed:
@@ -66,7 +66,7 @@ The built binary is `siri_ai` (SwiftPM derives the underscore name from the
 executable target); installing it as `siri-ai` on your PATH gives you the
 spelled-out command used throughout these docs.
 
-### Option D: as a Swift package dependency (apps, not the CLI)
+### Option C: as a Swift package dependency (apps, not the CLI)
 
 ```swift
 .package(url: "https://github.com/RabinApps/siri-ai.git", from: "0.1.0")

@@ -158,11 +158,21 @@ struct AXCleanerExtraTests {
     }
 }
 
-@Suite("Misc support bits")
+@Suite("Misc support bits", .serialized)
 struct SupportTests {
+    // .serialized: stdinHelperDetection + stdinHelperTTYBranches share the
+    // global isTTYProbe; serialization keeps a parallel forced-“TTY” restore
+    // from being observed mid-flight by the coherence check (the failure
+    // where stdinHelperDetection saw the OTHER test's forced probe).
+
     @Test func stdinHelperDetection() {
-        // In test context stdin is typically not a TTY; just assert coherence.
-        #expect(StdinHelper.hasPipedInput() == (isatty(fileno(stdin)) != 1))
+        // Asserts coherence of the REAL probe contract. A parallel suite may
+        // transiently install a forced isTTYProbe (its own branch tests do);
+        // while one is installed the answer is intentionally synthetic, so
+        // coherence holds only when the probe is unset.
+        if StdinHelper.isTTYProbe == nil {
+            #expect(StdinHelper.hasPipedInput() == (isatty(fileno(stdin)) != 1))
+        }
     }
 
     @Test func stdinHelperTTYBranches() {
