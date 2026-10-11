@@ -175,11 +175,12 @@ struct APISurfaceGuardTests {
         try fixtureText.write(to: source, atomically: true, encoding: .utf8)
 
         let libDir = try locateModuleDir()
-        let tool = "/usr/bin/swiftc"
-        guard FileManager.default.fileExists(atPath: tool) else {
-            Issue.record("swiftc not found at \(tool)")
-            return .succeeded   // environment problem, not an API failure
-        }
+        // Resolve swiftc like the toolchain does (xcrun) instead of assuming
+        // the /usr/bin shim exists: the CI xcode-27-arm64 image has been
+        // observed without a working shim, surfacing as a bare ENOENT from
+        // Process.run() that looked like an API failure. Any environment
+        // problem is reported as such; it must not masquerade as a guard hit.
+        let tool = try Self.swiftcPath()
 
         let process = Process()
         process.executableURL = URL(fileURLWithPath: tool)
@@ -247,6 +248,40 @@ struct APISurfaceGuardTests {
         throw CocoaError(.fileNoSuchFile, userInfo: [
             NSLocalizedDescriptionKey: "SiriAILib.swiftmodule not found — build the package (swift build) before running the API-guard suite, or set SIRI_AI_PACKAGE_ROOT."
         ])
+    }
+
+    /// Resolve the `swiftc` driver: prefer the xcode-selected toolchain
+    /// binary (always present when Xcode/CLT is installed), falling back to
+    /// the `/usr/bin` shim. Throws with the searched locations named so a
+    /// CI image difference reads as an environment report, not a mystery.
+    static func swiftcPath() throws -> String {
+        let fm = FileManager.default
+        let candidates = [
+            try? Self.selectedDeveloperDir().appending("/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"),
+            "/usr/bin/swiftc",
+        ].compactMap { $0 }
+        for candidate in candidates {
+            if fm.isExecutableFile(atPath: candidate) { return candidate }
+        }
+        throw CocoaError(.fileNoSuchFile, userInfo: [
+            NSLocalizedDescriptionKey: "no executable swiftc found; searched \(candidates)"
+        ])
+    }
+
+    static func selectedDeveloperDir() throws -> String {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/xcode-select")
+        process.arguments = ["-p"]
+        let out = Pipe()
+        process.standardOutput = out
+        process.standardError = Pipe()
+        try process.run()
+        process.waitUntilExit()
+        let data = out.fileHandleForReading.readDataToEndOfFile()
+        guard process.terminationStatus == 0 else {
+            throw CocoaError(.fileNoSuchFile, userInfo: [NSLocalizedDescriptionKey: "xcode-select -p failed"])
+        }
+        return String(decoding: data, as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     static func sdkPath() throws -> String {
