@@ -13,7 +13,31 @@ Mac.
 
 ## Install
 
-### Option A: build and install the CLI from source
+### Option A: Homebrew (installs from this repo, no separate tap required)
+
+Homebrew can tap this repository directly — brew recognizes a `Formula/`
+directory inside it and builds the formula from source, so no separate
+`homebrew-*` tap repository is needed:
+
+```sh
+brew tap rabinapps/siri-ai https://github.com/RabinApps/siri-ai.git
+brew install rabinapps/siri-ai/siri-ai
+```
+
+The formula builds the SwiftPM package in release mode and installs the CLI as
+`siri-ai`; upgrades (`brew upgrade siri-ai`) rerun the release build
+automatically.
+
+Verify:
+
+```sh
+siri-ai status
+```
+
+> Note: building the Siri AI backend into the brew sandbox requires Homebrew
+> 4.4+; on older brew versions fall back to Option B (build from source).
+
+### Option C: build and install the CLI from source
 
 The package builds straight from this repository — no Homebrew formula or
 shell installer needed:
@@ -42,7 +66,7 @@ The built binary is `siri_ai` (SwiftPM derives the underscore name from the
 executable target); installing it as `siri-ai` on your PATH gives you the
 spelled-out command used throughout these docs.
 
-### Option B: as a Swift package dependency (apps, not the CLI)
+### Option D: as a Swift package dependency (apps, not the CLI)
 
 ```swift
 .package(url: "https://github.com/RabinApps/siri-ai.git", from: "0.1.0")

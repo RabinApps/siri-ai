@@ -32,10 +32,22 @@ cd docs && npm install && npm run dev
 
 ## Quick start
 
+Install the CLI with Homebrew (builds from this repo — no separate tap needed):
+
+```sh
+brew tap rabinapps/siri-ai https://github.com/RabinApps/siri-ai.git
+brew install rabinapps/siri-ai/siri-ai
+siri-ai status
+```
+
+Or build from source:
+
 ```sh
 swift build
 .build/debug/siri_ai status
 ```
+
+See [Getting Started](docs/guide/getting-started.md) for all install options.
 
 Requires macOS 26+ (macOS 27 for the Siri AI backend), Apple Silicon, Apple
 Intelligence enabled, and Swift 6.4+ / Xcode 26+. See
