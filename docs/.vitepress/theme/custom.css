@@ -9,8 +9,17 @@
  */
 
 /* --- appearance switcher: never shown, site is dark by decree ----------- */
-.VPNavBarAppearance {
-  display: none;
+/* The switcher renders as .VPNavBarAppearance.appearance wrapping a
+   .VPSwitchAppearance — hide both from every gap its DOM could shift through
+   (including mobile drawer and screens >960px). */
+.VPNavBarAppearance,
+.VPSwitchAppearance {
+  display: none !important;
+}
+/* Belt-and-braces: the mobile drawer's appearance row reuses the switch too */
+.VPSidebarItem .VPSwitchAppearance,
+.VPNavBarMenuLink + .VPNavBarAppearance.appearance {
+  display: none !important;
 }
 
 /* --- surfaces (near-black) ---------------------------------------------- */

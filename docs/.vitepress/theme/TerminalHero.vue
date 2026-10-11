@@ -137,7 +137,21 @@ function visible(index: number) {
 </template>
 
 <style scoped>
-/* Colors bind to VitePress theme variables: readable in light and dark mode. */
+/* ALWAYS a dark terminal: the site is dark-only by design, and the terminal is
+   the brand centerpiece — pin its own palette so any transient/forced light
+   theme state can never flash a light terminal. These are plain hex values,
+   intentionally NOT theme variables, scoped to .terminal-hero only. */
+.terminal-hero,
+.terminal-hero .title-bar {
+  --vp-c-border: #45232f;
+  --vp-c-bg-elv: #191118;
+  --vp-c-bg-soft: #221218;
+  --vp-c-text-2: #d0a9b8;
+  --vp-c-text-3: #9e7984;
+}
+
+/* Colors bind to VitePress theme variables (overridden dark above, and the
+   site jamais-boots light via Layout.vue). */
 .terminal-hero {
   border: 1px solid var(--vp-c-border);
   border-radius: 10px;
