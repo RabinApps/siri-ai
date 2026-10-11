@@ -9,8 +9,22 @@ export default defineConfig({
   title: 'siri-ai',
   description:
     'Apple Intelligence and the real Siri AI app from your terminal. One Swift 6 binary — fully on-device, no API keys.',
+  // Absolute deploy origin for og:image / og:url (there is no runtime origin
+  // to read in static-site land; update if the site ever moves domains).
+  socialBase: 'https://rabinapps.github.io/siri-ai',
 
-  head: [['meta', { name: 'theme-color', content: '#ff5d7d' }]],
+  head: [
+    ['meta', { name: 'theme-color', content: '#ff5d7d' }],
+    // Branded share card (image lives in docs/public/, copied to /siri-ai/ root)
+    ['meta', { property: 'og:image', content: 'https://rabinapps.github.io/siri-ai/og.png' }],
+    ['meta', { property: 'og:image:width', content: '1200' }],
+    ['meta', { property: 'og:image:height', content: '630' }],
+    ['meta', { property: 'og:image:alt', content: 'siri-ai — Apple Intelligence and the Siri AI app in your terminal' }],
+    ['meta', { property: 'og:site_name', content: 'siri-ai' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:image', content: 'https://rabinapps.github.io/siri-ai/og.png' }],
+  ],
 
   themeConfig: {
     nav: [
@@ -83,5 +97,28 @@ export default defineConfig({
       copyright:
         'Copyright © 2026 <a href="https://www.rabinapps.com" target="_blank" rel="noopener">Rabin Apps LLC</a>',
     },
+  },
+
+  // Per-page Open Graph URL/title/description: VitePress hoists each page's
+  // frontmatter title + description into <head> automatically, but og:url,
+  // og:title and og:description need an origin-qualified absolute URL, which
+  // the static build can't derive — so stamp them at build time.
+  async transformHead({ pageData }) {
+    const base = 'https://rabinapps.github.io/siri-ai'
+    // Directory-style URLs — what the site actually serves and what crawlers
+    // expect (e.g. guide/foo.md → /guide/foo/, index.md → /).
+    const dir = String(pageData.relativePath)
+      .replace(/index\.md$/, '')
+      .replace(/\.md$/, '/')
+    const url = dir === '' ? base + '/' : base + '/' + dir
+    // Home has no frontmatter title; fall back to the site brand + tagline.
+    const title = pageData.title || 'siri-ai — Apple Intelligence & Siri AI in your terminal'
+    return [
+      ['meta', { property: 'og:url', content: url }],
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: pageData.description }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:description', content: pageData.description }],
+    ]
   },
 })
