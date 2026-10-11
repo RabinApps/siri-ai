@@ -149,6 +149,28 @@ LIVE_TESTS=1 swift test --filter "AppIntelligenceEngine|SiriAX"
 This keeps CI green without a Siri session or Apple Intelligence, while
 letting developers with both still run the real-backend coverage locally.
 
+### Known transient states (do NOT silently ignore these)
+
+The two Siri AX tests occasionally time out at the engine's 30 s settle
+window — the documented model-fatigue/AX-stall signature. The rule, learned
+over two release gates (the release runbook applies it as gate Step 3):
+
+- **First failure:** retry the test filtered to just it. If it passes on the
+  immediate retry (typical: 20–35 s), the flake is confirmed and the tier
+  counts as green. Both tests cleared on retry in the last two gates.
+- **Two consecutive failures of the same test in one session:** treat as a
+  candidate regression. Before assuming backend fatigue, verify the failure
+  signature matches (timeout on settle across both tests at 30–50 s; single
+  test stuck indefinitely into the minutes — i.e. not the subprocess
+  backstop exit-124 skip — is the wedge pattern and needs investigation).
+- **The `agentic tool loop` test skipping on tool-layer absence** is a valid
+  labeled skip by design; it does not count as a run failure.
+
+Expected wall-clock for the live E2E tier: roughly 60–120 s on a healthy
+machine. If the persona test alone exceeds ~60 s, something is off; kill it
+rather than waiting (the subprocess-run live tool test self-kills at 150 s
+regardless).
+
 ## Regenerating fixtures
 
 To (re)write `ax-sessions.json` from a live Siri AI session (needs local Siri,

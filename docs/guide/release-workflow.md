@@ -61,6 +61,10 @@ at tag time; everything under `### Fixed` / `### Added` / `### Changed` /
 
 ## Step 3 — live spot-check (needs a real Siri + Apple Intelligence machine)
 
+Testing mechanics, the skip/skip-not-hammer-red policy, and the flake rule
+below live canonically in [Testing & Fixtures](/guide/testing) — this page
+only runs the gate:
+
 ```sh
 LIVE_TESTS=1 swift test --filter "E2ETests" --filter "ChallengingPromptsTests"
 ```
@@ -74,27 +78,15 @@ What this covers, in order:
 - **the two known-flaky Siri AX tests** (`siri: system-prompt compliance /
   persona constraint`, `live: Siri AX E2E — respond shape`)
 
-### Known transient states (do NOT block release on these, but also do not silently ignore them)
+### Known transient states
 
-The two Siri AX tests occasionally time out at the engine's 30 s settle
-window — the documented model-fatigue/AX-stall signature. The rule, learned
-over two release gates:
-
-- **First failure:** retry the test filtered to just it. If it passes on the
-  immediate retry (typical: 20–35 s), the flake is confirmed and the tier
-  counts as green. Both tests cleared on retry in the last two gates.
-- **Two consecutive failures of the same test in one session:** treat as a
-  candidate regression. Before assuming backend fatigue, verify the failure
-  signature matches (timeout on settle across both tests at 30–50 s; single
-  test stuck indefinitely into the minutes — i.e. not the subprocess
-  backstop exit-124 skip — is the wedge pattern and needs investigation).
-- **The `agentic tool loop` test skipping on tool-layer absence** is a valid
-  labeled skip by design; it does not count as a run failure.
-
-Expected wall-clock for the whole tier: roughly 60–120 s on a healthy
-machine. If the persona test alone exceeds ~60 s, something is off; kill it
-rather than waiting (the subprocess-run live tool test self-kills at 150 s
-regardless).
+The two Siri AX tests occasionally time out at the 30 s settle window
+(model-fatigue/AX-stall signature). Apply the flake rule verbatim — it lives
+canonically in [Testing & Fixtures → Known transient states](/guide/testing):
+first failure → filtered immediate retry counts as green; two consecutive
+failures of the same test → candidate regression, verify the signature;
+labeled skips (e.g. agentic tool loop without a tool layer) never count as
+failures. Wall-clock expectation for the tier: 60–120 s healthy.
 
 ## Step 4 — changelog final edit
 

@@ -1,12 +1,12 @@
 # Code examples
 
-Copy-paste-ready snippets for the `SiriAILib` surface. Each one matches the
-API shipped in this package — see [Embedding in a Swift app](/guide/swift-app-integration)
-for the full walkthrough and [Architecture](/project/architecture) for how the
-pieces layer. All examples require macOS 26+ (27 for the Siri AX backend) and
-Apple Intelligence enabled.
+Copy-paste-ready snippets for the `SiriAILib` surface. One page, one
+habitat: the full walkthrough with requirement details lives in
+[Embedding in a Swift app](/guide/swift-app-integration); this page is the
+quick reference. All examples require macOS 26+ (27 for the Siri AX backend)
+and Apple Intelligence enabled.
 
-> **Runnable twins:** the snippets here have live counterparts in
+> **Runnable twins:** every snippet here has a live counterpart in
 > `Examples/SwiftExample` — run `swift run Example <mode>`:
 > `stream`, `answer --repo`, `agentic --repo`, `chat`, `decide`, `backend`,
 > `status` mirror the sections below. The guards (`DocSnippetGuardTests`)
@@ -75,19 +75,6 @@ do {
 } catch {
     // anything else
 }
-```
-
-## Multi-turn chat
-
-```swift
-var history: [ChatMessage] = [.system("You are a terse assistant.")]
-history.append(.user("What is a task group?"))
-
-let prompt = history.map { "\($0.role): \($0.content)" }.joined(separator: "\n")
-let reply = try await engine.respond(EngineRequest(
-    system: history.first?.content, prompt: prompt
-))
-history.append(.assistant(reply.text))
 ```
 
 ## Repo-grounded answer (`--repo`, in-process)
@@ -178,16 +165,14 @@ try await server.run()   // GET /health, GET /v1/models, POST /v1/chat/completio
 Prefer the engine API directly for a single app talking to its own model —
 it skips sockets and serialization entirely. See [Serve API](/serve/).
 
-## Keeping test hooks private: the API-surface guard
-
-The library's test seams stay `internal`; consumers reach them only via
-`@testable import SiriAILib`. `APISurfaceGuardTests` compiles one-line
-consumer fixtures with a plain `import SiriAILib` and asserts each seam
-fails to compile, so a seam that accidentally becomes `public` fails CI:
-
-```sh
-swift test --filter APISurfaceGuardTests
-```
-
 Adding a new test hook? Register it in `guardedSeams` — one display name plus
-the expression a consumer would write. See [Testing & Fixtures](/guide/testing).
+the expression a consumer would write. See [Testing & Fixtures](/guide/testing)
+for how the API-surface guard works, and why test seams must stay internal.
+
+## Where to go next
+
+- [Embedding in a Swift app](/guide/swift-app-integration) — the full app
+  walkthrough (multi-turn chat, SwiftUI view, decisions, the Siri AX backend),
+  including everything above in worked-through form
+- [Serve API](/serve/) — the OpenAI-compatible HTTP surface
+- [Architecture](/project/architecture) — how the pieces layer
