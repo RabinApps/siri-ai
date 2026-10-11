@@ -4,7 +4,7 @@ All notable changes to `siri-ai` are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); the package pushes
 source releases as git tags.
 
-## [Unreleased]
+## [0.1.0]
 
 ### Fixed
 

@@ -7,7 +7,7 @@ this page mirrors its [Unreleased] section. Below, this path is `/changelog`.
 _Keep both copies in sync when you edit one._
 
 <!-- BEGIN MIRROR: keep in sync with ../CHANGELOG.md -->
-## [Unreleased]
+## [0.1.0]
 
 ### Fixed
 
