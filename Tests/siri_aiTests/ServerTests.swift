@@ -386,12 +386,11 @@ struct ServerSocketTests {
     @Test func unknownModelRoutedToAppleEngineOverWire() async throws {
         let appleStub = StubEngine(replies: ["DEFAULT-APPLE-SAW-THIS"])
         let siriStub = StubEngine(replies: ["bad: siri engine used"])
-        let restore = OpenAIServer.setRoutingOverride { model in
-            switch OpenAIServer.resolve(model: model) {
-            case .apple: return appleStub
-            case .siri: return siriStub
-            }
-        }
+        let restore = OpenAIServer.setKeyedRoutingOverride([
+            "siri-ai": siriStub,
+            "Apple-Intelligence": appleStub,
+            "totally-unknown-model": appleStub,
+        ])
         defer { restore() }
 
         let (port, listenerFD) = try startServer(engine: StubEngine())
@@ -425,13 +424,13 @@ struct ServerSocketTests {
     @Test func modelFieldRoutesToSelectedEngineOverWire() async throws {
         let siriStub = StubEngine(replies: ["SIRI-ENGINE-SAW-THIS"])
         let appleStub = StubEngine(replies: ["APPLE-ENGINE-SAW-THIS"])
-        let restore = OpenAIServer.setRoutingOverride { model in
-            switch model.lowercased() {
-            case "siri-ai": return siriStub
-            case "apple-intelligence": return appleStub
-            default: return nil   // fall through to the default mapping
-            }
-        }
+        // Keyed install: claims only "siri-ai"/"apple-intelligence" so a
+        // parallel suite's keyed claims can coexist (claim-wait serializes
+        // any true overlap).
+        let restore = OpenAIServer.setKeyedRoutingOverride([
+            "siri-ai": siriStub,
+            "apple-intelligence": appleStub,
+        ])
         defer { restore() }
 
         let (port, listenerFD) = try startServer(engine: StubEngine())

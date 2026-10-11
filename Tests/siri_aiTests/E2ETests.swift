@@ -200,7 +200,8 @@ struct E2ETests {
         let listener = try OpenAIServer(port: 0, engine: stub).listenerForTesting()
         let port = Self.port(of: listener)
 
-        let restore = OpenAIServer.setRoutingOverride { _ in stub }
+        // Keyed install: claim just the model this test exercises.
+        let restore = OpenAIServer.setKeyedRoutingOverride([model: stub])
         let server = OpenAIServer(port: port, engine: stub)
         let task = Task { await server.acceptLoop(listenerFD: listener, maxConnections: 1) }
         let response = try await Self.http(header + body, port: port)

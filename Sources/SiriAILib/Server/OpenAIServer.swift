@@ -349,6 +349,71 @@ public struct OpenAIServer: Sendable {
         }
     }
 
+    /// Model-KEYED override install — the concurrency-safe variant. Only the
+    /// models the caller supplies are routed to its engine; every other model
+    /// falls through to the rest of the stack (production default last).
+    ///
+    /// Concurrency: claims are exclusive. If ANY of the requested models is
+    /// already claimed by an active install (a parallel suite testing the
+    /// same model name), the install WAITS (bounded to 60s so a wedged peer
+    /// fails loudly instead of hanging CI forever) until the models free up.
+    /// The restore releases precisely the caller's claims and wakes waiters.
+    @discardableResult
+    static func setKeyedRoutingOverride(
+        _ enginesByModel: [String: LLMEngine]
+    ) -> @Sendable () -> Void {
+        let mapping = Dictionary(uniqueKeysWithValues:
+            enginesByModel.map { (key: $0.key.lowercased(), value: $0.value) })
+        let wanted = Set(mapping.keys)
+
+        routingClaims.lock()
+        let deadline = Date().addingTimeInterval(60)
+        while !wanted.isDisjoint(with: routingClaims.active) {
+            if !routingClaims.cond.wait(until: deadline) { break }
+        }
+        precondition(wanted.isDisjoint(with: routingClaims.active),
+                     "setKeyedRoutingOverride: models \(wanted.intersection(routingClaims.active)) still claimed after 60s — a parallel suite never restored its override")
+        // Closures aren't Equatable — rendezvous via a fresh UUID tag: the
+        // restore probes the stack with this tag to find and remove exactly
+        // this installer (the tag key is never a real model name).
+        let token = UUID()
+        let tag = "__tag-\(token)"
+        let impl: @Sendable (String) -> (any LLMEngine)? = { model in
+            routingClaims.lock(); defer { routingClaims.unlock() }
+            if model == tag { return wanted.first.flatMap { mapping[$0] } }
+            return wanted.contains(model.lowercased()) ? mapping[model.lowercased()] : nil
+        }
+        routingClaims.installers[token] = impl
+        routingClaims.active.formUnion(wanted)
+        routingClaims.unlock()
+        routingStack.withLock { $0.append(impl) }
+        routingOverride = rebuiltOverride()
+
+        return { [routingStack] in
+            routingClaims.lock()
+            routingClaims.installers[token] = nil
+            routingClaims.active.subtract(wanted)
+            routingClaims.cond.broadcast()
+            routingClaims.unlock()
+            routingStack.withLock { stack in
+                stack.removeAll { installer in installer(tag) != nil }
+            }
+            routingOverride = routingStack.withLock { $0.isEmpty } ? nil : rebuiltOverride()
+        }
+    }
+
+    /// Exclusive model-claim registry for setKeyedRoutingOverride. One lock
+    /// guards the active-claim set, the installer table, and the condition
+    /// variable that wakes blocked installs after a restore.
+    private static let routingClaims = ClaimsBox()
+    private final class ClaimsBox: @unchecked Sendable {
+        let cond = NSCondition()
+        var active: Set<String> = []
+        var installers: [UUID: @Sendable (String) -> (any LLMEngine)?] = [:]
+        func lock() { cond.lock() }
+        func unlock() { cond.unlock() }
+    }
+
     /// The override stack. Guarded by its own lock (an unfair lock is fine
     /// at test-invocation rates).
     private static let routingStack: OSAllocatedUnfairLock<[(@Sendable (String) -> (any LLMEngine)?)]> =
