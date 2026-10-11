@@ -4,6 +4,10 @@ Apple Intelligence and the real Siri AI app from your terminal. One Swift 6
 binary — no Python, no TypeScript/Bun bridge, no API keys, nothing leaves your
 Mac.
 
+A product of [Rabin Apps LLC](https://www.rabinapps.com) · ☕ Sponsor:
+[PayPal](https://www.paypal.com/donate/?hosted_button_id=YEJ37WF4Q3HPC) ·
+[Buy Me a Coffee](https://buymeacoffee.com/rabinapps)
+
 ## Documentation
 
 The full documentation lives in the [`docs/`](docs/) directory, built with
@@ -55,5 +59,7 @@ Intelligence enabled, and Swift 6.4+ / Xcode 26+. See
 
 ---
 
-siri-ai is a product of **Rabin Apps LLC**. Released under the
-[MIT License](LICENSE) · 2026.
+siri-ai is a product of **[Rabin Apps LLC](https://www.rabinapps.com)**. Released under the
+[MIT License](LICENSE) · 2026. If it's useful to you, consider sponsoring:
+[PayPal](https://www.paypal.com/donate/?hosted_button_id=YEJ37WF4Q3HPC) ·
+[Buy Me a Coffee](https://buymeacoffee.com/rabinapps).

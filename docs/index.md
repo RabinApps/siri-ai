@@ -34,4 +34,6 @@ features:
     details: AX session fixtures replay through the cleaner as regression tests — live-model tests stay opt-in via LIVE_TESTS=1.
 ---
 
-siri-ai is from **Rabin Apps LLC** · MIT License · 2026
+siri-ai is from **[Rabin Apps LLC](https://www.rabinapps.com)** · MIT License · 2026 —
+sponsor via [PayPal](https://www.paypal.com/donate/?hosted_button_id=YEJ37WF4Q3HPC) or
+[Buy Me a Coffee](https://buymeacoffee.com/rabinapps) ☕

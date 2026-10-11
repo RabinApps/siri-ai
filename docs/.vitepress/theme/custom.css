@@ -1,49 +1,55 @@
 /*
- * siri-ai docs — dark modern theme ("deep space terminal").
+ * siri-ai docs — dark modern theme ("deep space strawberry").
  *
  * Dark for everyone: VitePress ships a light/void pair, but this brand is a
  * terminal tool, so we pin the site to dark only — both `:root` (the light
- * alias VitePress never shows) and `.dark` get the same palette. Colors are
- * near-black blue surfaces with a indigo→cyan neon accent.
+ * alias VitePress never shows) and `.dark` get the same palette. Near-black
+ * surfaces with a strawberry-red accent; the appearance switcher is hidden
+ * in Layout.vue (variant `VPNavBarAppearance` is display:none).
  */
 
-/* --- surfaces (near-black, blue-tinted) ---------------------------------- */
+/* --- appearance switcher: never shown, site is dark by decree ----------- */
+.VPNavBarAppearance {
+  display: none;
+}
+
+/* --- surfaces (near-black) ---------------------------------------------- */
 :root,
 .dark {
-  --vp-c-bg: #0b0d16;
-  --vp-c-bg-alt: #101322;
-  --vp-c-bg-soft: #141830;
+  --vp-c-bg: #0d0b10;
+  --vp-c-bg-alt: #151018;
+  --vp-c-bg-soft: #1c141f;
 
-  --vp-sidebar-bg-color: #0b0d16;
-  --vp-nav-bg-color: #0b0d16e6;
+  --vp-sidebar-bg-color: #0d0b10;
+  --vp-nav-bg-color: #0d0b10e6;
 
-  --vp-c-text-1: #e7eaf6;
-  --vp-c-text-2: #a9b0d0;
-  --vp-c-text-3: #79809e;
+  --vp-c-text-1: #f6e9ec;
+  --vp-c-text-2: #d0a9b8;
+  --vp-c-text-3: #9e7984;
 
-  --vp-c-divider: #232845;
-  --vp-c-gutter: #1a1e38;
+  --vp-c-divider: #45232f;
+  --vp-c-gutter: #381a24;
 
-  /* --- brand accents --- */
-  --vp-c-brand-1: #8b9dff;   /* link/heading accent */
-  --vp-c-brand-2: #6ee7f9;   /* hover: cyan */
-  --vp-c-brand-3: #8b9dff;   /* active */
-  --vp-c-brand-soft: #8b9dff22;
+  /* --- brand accents: strawberry red --- */
+  --vp-c-brand-1: #ff5d7d;   /* link/heading accent */
+  --vp-c-brand-2: #ff8da6;   /* hover: lighter strawberry */
+  --vp-c-brand-3: #e8426a;   /* active */
+  --vp-c-brand-soft: #ff5d7d22;
 
-  --vp-c-sponsor: #c4b5fd;
+  --vp-c-sponsor: #ff5d7d;
 
   /* --- hero --- */
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #8b9dff 30%, #6ee7f9);
-  --vp-home-hero-image-background-image: linear-gradient(-45deg, #8b9dff55, #6ee7f933);
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #ff5d7d 30%, #ffb3c2);
+  --vp-home-hero-image-background-image: linear-gradient(-45deg, #ff5d7d55, #ffb3c233);
   --vp-home-hero-image-filter: blur(64px);
 
   /* --- code blocks --- */
-  --vp-code-block-bg: #12162b;
-  --vp-code-tab-bg: #0b0d16;
-  --vp-code-lang-color: #6ee7f9;
+  --vp-code-block-bg: #191118;
+  --vp-code-tab-bg: #0d0b10;
+  --vp-code-lang-color: #ff8da6;
 
-  --vp-c-indigo-1: #8b9dff;
+  --vp-c-indigo-1: #ff5d7d;
 
   color-scheme: dark;
 }
@@ -55,10 +61,10 @@
   --vp-doc-letter-spacing: 0.01em;
 }
 .vp-doc a {
-  text-decoration-color: #8b9dff55;
+  text-decoration-color: #ff5d7d55;
 }
 .vp-doc a:hover {
-  text-decoration-color: #6ee7f9;
+  text-decoration-color: #ff8da6;
 }
 
 /* Custom block (tip/note/warning) + inline code bg */
@@ -70,7 +76,7 @@
 
 /* Subtle glow on the nav bottom edge */
 .VPNavBar:not(.home) {
-  border-bottom: 1px solid #23284566;
+  border-bottom: 1px solid #45232f66;
 }
 
 /* Code copy button contrast */

@@ -10,13 +10,14 @@ export default defineConfig({
   description:
     'Apple Intelligence and the real Siri AI app from your terminal. One Swift 6 binary — fully on-device, no API keys.',
 
-  head: [['meta', { name: 'theme-color', content: '#5f67ee' }]],
+  head: [['meta', { name: 'theme-color', content: '#ff5d7d' }]],
 
   themeConfig: {
     nav: [
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'CLI Reference', link: '/cli/' },
       { text: 'Serve API', link: '/serve/' },
+      { text: 'RabinApps.com', link: 'https://www.rabinapps.com' },
     ],
 
     sidebar: [
@@ -65,6 +66,10 @@ export default defineConfig({
 
     socialLinks: [{ icon: 'github', link: 'https://github.com/RabinApps/siri-ai' }],
 
+    // Sponsor links render in the footer message (VitePress has no built-in
+    // sponsor slot outside home layouts); FUNDING.yml keeps the same targets
+    // for the repo-header Sponsor button.
+
     outline: { level: [2, 3], label: 'On this page' },
 
     search: {
@@ -72,8 +77,12 @@ export default defineConfig({
     },
 
     footer: {
-      message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2026 Rabin Apps LLC',
+      message:
+        'Released under the MIT License · Sponsor: ' +
+        '<a href="https://www.paypal.com/donate/?hosted_button_id=YEJ37WF4Q3HPC" target="_blank" rel="noopener">PayPal</a> · ' +
+        '<a href="https://buymeacoffee.com/rabinapps" target="_blank" rel="noopener">Buy Me a Coffee</a>',
+      copyright:
+        'Copyright © 2026 <a href="https://www.rabinapps.com" target="_blank" rel="noopener">Rabin Apps LLC</a>',
     },
   },
 })
