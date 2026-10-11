@@ -1,3 +1,8 @@
+---
+title: ask
+description: "siri-ai ask: one-shot question, optionally repo-grounded, with tools, edits, and --max-seconds."
+---
+
 # ask
 
 One-shot question to a backend.

@@ -1,3 +1,8 @@
+---
+title: Code examples
+description: "Copy-paste-ready SiriAILib snippets: engines, streaming, availability, repo grounding, tool use, decisions, backend selection, server embedding."
+---
+
 # Code examples
 
 Copy-paste-ready snippets for the `SiriAILib` surface. One page, one

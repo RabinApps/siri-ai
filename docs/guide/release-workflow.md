@@ -1,3 +1,8 @@
+---
+title: Release workflow
+description: "The pre-tag release checklist: deterministic tier, coherence audit, live spot-check, changelog promotion, tagging."
+---
+
 # Release workflow
 
 The repeatable verification a release needs before it can be tagged. Every

@@ -1,3 +1,8 @@
+---
+title: CLI Reference
+description: "CLI reference overview: status, permission, ask, chat, serve — one binary, no API keys."
+---
+
 # CLI Reference
 
 `siri-ai` is a single Swift 6 binary. Available commands:

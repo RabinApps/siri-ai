@@ -1,3 +1,8 @@
+---
+title: Embedding in a Swift app
+description: "Embed the SiriAILib package in a macOS Swift app: dependency setup, engines, streaming, repo grounding, tools, chat."
+---
+
 # Embedding in a Swift app
 
 Everything the `siri-ai` CLI does is also a **Swift library**. If your app is

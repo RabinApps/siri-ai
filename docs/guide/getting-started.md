@@ -1,3 +1,8 @@
+---
+title: Getting Started
+description: "Install siri-ai: Homebrew tap, build from source, or a Swift package dependency; requirements and first steps."
+---
+
 # Getting Started
 
 Apple Intelligence and the real Siri AI app from your terminal. One Swift 6

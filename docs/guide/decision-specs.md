@@ -1,3 +1,8 @@
+---
+title: Custom decision specs
+description: "Replace the built-in fast-decision verdict with your own .siri-ai/decisions.spec rules, fields, and outcomes."
+---
+
 # Custom decision specs
 
 The built-in System 1 verdict (see [Fast typed decisions](/guide/fast-decisions))

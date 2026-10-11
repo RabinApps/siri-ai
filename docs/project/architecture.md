@@ -1,3 +1,8 @@
+---
+title: Architecture
+description: "How siri-ai is structured: SiriAILib library target, CLI shell, engines, context pipeline, tools, server."
+---
+
 # Architecture
 
 Everything below lives in the importable library target `SiriAILib` (the

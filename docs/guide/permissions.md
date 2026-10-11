@@ -1,3 +1,8 @@
+---
+title: Permissions
+description: "Diagnose and grant the macOS Accessibility and Screen Recording permissions siri-ai needs."
+---
+
 # Permissions
 
 `siri-ai permission` checks the macOS permissions both backends need, opens

@@ -1,3 +1,8 @@
+---
+title: permission
+description: "siri-ai permission: check and grant the macOS permissions the CLI and app need."
+---
+
 # permission
 
 Check and grant the macOS permissions siri-ai needs.

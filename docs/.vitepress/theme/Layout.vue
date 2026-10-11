@@ -3,6 +3,7 @@ import { computed, onMounted } from 'vue'
 import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import TerminalHero from './TerminalHero.vue'
+import Breadcrumbs from './Breadcrumbs.vue'
 
 const { Layout } = DefaultTheme
 const { frontmatter, isDark } = useData()
@@ -23,6 +24,10 @@ onMounted(() => {
   <Layout>
     <template #home-hero-info-after>
       <TerminalHero v-if="isHome" />
+    </template>
+
+    <template #page-top>
+      <Breadcrumbs />
     </template>
   </Layout>
 </template>

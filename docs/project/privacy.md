@@ -1,3 +1,8 @@
+---
+title: Privacy
+description: "Privacy: inference runs on-device via Apple Intelligence; nothing leaves your Mac."
+---
+
 # Privacy
 
 Apple Intelligence inference runs **on-device** on the Neural Engine. The Siri

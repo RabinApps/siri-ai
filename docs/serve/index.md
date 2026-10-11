@@ -1,3 +1,8 @@
+---
+title: Serve API
+description: "The siri-ai serve OpenAI-compatible API: endpoints, POST /v1/chat/completions spec, model ids, streaming semantics, SDK examples."
+---
+
 # Serve API
 
 `siri-ai serve` exposes a local, OpenAI-compatible HTTP API backed by Apple

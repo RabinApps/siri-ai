@@ -1,3 +1,8 @@
+---
+title: Repository Q&A & Editing
+description: "Ask grounded on your repository: --repo context, --tools file tools, and --edit with a y/N confirm gate."
+---
+
 # Repository Q&A & Editing
 
 `siri-ai ask` can ground its answer in your repository, search it with tools,

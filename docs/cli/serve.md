@@ -1,3 +1,8 @@
+---
+title: serve
+description: "siri-ai serve: run the local OpenAI-compatible HTTP server on a port you choose."
+---
+
 # serve
 
 Run a local OpenAI-compatible HTTP server so any OpenAI SDK or tool can use

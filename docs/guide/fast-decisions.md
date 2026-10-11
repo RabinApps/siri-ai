@@ -1,3 +1,8 @@
+---
+title: Fast typed decisions
+description: "The fast typed System-1 routing pass: what it decides, where it applies, fallback chain, custom schemas."
+---
+
 # Fast typed decisions (System 1)
 
 Before the slow "System 2" generation, siri-ai makes a fast, schema-constrained

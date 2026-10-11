@@ -1,3 +1,8 @@
+---
+title: status
+description: "siri-ai status: diagnose engine availability, permissions, and the detected context window."
+---
+
 # status
 
 Diagnose engine availability and permissions.

@@ -1,3 +1,8 @@
+---
+title: chat
+description: "siri-ai chat: interactive multi-turn session with /history, /clear, /quit and system prompts."
+---
+
 # chat
 
 Interactive multi-turn session.

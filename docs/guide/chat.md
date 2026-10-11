@@ -1,3 +1,8 @@
+---
+title: Chat
+description: "Multi-turn chat sessions: transcript memory, /commands, Siri-memory isolation block."
+---
+
 # Chat
 
 `siri-ai chat` starts an interactive multi-turn session — see the

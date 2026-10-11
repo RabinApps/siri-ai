@@ -1,3 +1,8 @@
+---
+title: Testing & Fixtures
+description: "Testing tiers and fixtures: recorded AX fixtures, API-surface guard, docs-snippet guard, E2E suite, LIVE_TESTS."
+---
+
 # Testing & Fixtures
 
 There are two kinds of tests against the real backends (Apple Intelligence
