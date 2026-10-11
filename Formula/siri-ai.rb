@@ -17,7 +17,7 @@ class SiriAi < Formula
   depends_on macos: :tahoe # Apple Intelligence requires macOS 26+
 
   def install
-    system "swift", "package", "resolve", "--package-path", buildpath
+    system "swift", "package", "resolve", "--package-path", buildpath, "--disable-sandbox"
     # SwiftPM's own sandbox cannot nest inside Homebrew's build sandbox
     # (SwiftPM plugins/macros) — mirror the homebrew-core mockolo approach.
     system "swift", "build", "--package-path", buildpath, "-c", "release", "--disable-sandbox"

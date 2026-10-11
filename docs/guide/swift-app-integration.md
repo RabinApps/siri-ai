@@ -35,7 +35,10 @@ let package = Package(
     name: "MyApp",
     platforms: [.macOS(.v26)],
     dependencies: [
-        .package(url: "https://github.com/RabinApps/siri-ai.git", from: "0.1.0"),
+        // Until the first tagged release: depend on main (SwiftPM pins it to
+        // the current commit at resolve time). After a tag lands, switch to
+        // `from: "0.1.0"`.
+        .package(url: "https://github.com/RabinApps/siri-ai.git", branch: "main"),
     ],
     targets: [
         .executableTarget(

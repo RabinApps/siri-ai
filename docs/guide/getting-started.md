@@ -21,12 +21,14 @@ directory inside it and builds the formula from source, so no separate
 
 ```sh
 brew tap rabinapps/siri-ai https://github.com/RabinApps/siri-ai.git
-brew install rabinapps/siri-ai/siri-ai
+brew install --HEAD rabinapps/siri-ai/siri-ai
 ```
 
 The formula builds the SwiftPM package in release mode and installs the CLI as
-`siri-ai`; upgrades (`brew upgrade siri-ai`) rerun the release build
-automatically.
+`siri-ai`; upgrades (`brew upgrade --fetch-HEAD siri-ai`) rerun the release
+build automatically. While the repo has no version tags yet the formula is
+HEAD-only (hence `--HEAD`); once the first tag lands a plain
+`brew install rabinapps/siri-ai/siri-ai` works and pins that release.
 
 Verify:
 
@@ -68,9 +70,16 @@ spelled-out command used throughout these docs.
 
 ### Option C: as a Swift package dependency (apps, not the CLI)
 
+Until the first tagged release, depend on the `main` branch (SwiftPM pins it
+to the current commit at resolve time):
+
 ```swift
-.package(url: "https://github.com/RabinApps/siri-ai.git", from: "0.1.0")
+.package(url: "https://github.com/RabinApps/siri-ai.git", branch: "main")
 ```
+
+Your consuming package needs `swift-tools-version: 6.2`+ and
+`platforms: [.macOS(.v26)]` (or later). After the first tag, switch to a
+version pin: `.package(url: …, from: "0.1.0")`.
 
 See [Embedding in a Swift app](/guide/swift-app-integration).
 

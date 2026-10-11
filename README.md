@@ -36,7 +36,7 @@ Install the CLI with Homebrew (builds from this repo — no separate tap needed)
 
 ```sh
 brew tap rabinapps/siri-ai https://github.com/RabinApps/siri-ai.git
-brew install rabinapps/siri-ai/siri-ai
+brew install --HEAD rabinapps/siri-ai/siri-ai
 siri-ai status
 ```
 
