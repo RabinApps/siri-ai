@@ -50,8 +50,7 @@ export default defineConfig({
       {
         text: 'Serve API',
         items: [
-          { text: 'Overview', link: '/serve/' },
-          { text: 'Chat Completions', link: '/serve/chat-completions' },
+          { text: 'Overview + endpoint spec', link: '/serve/' },
         ],
       },
       {
