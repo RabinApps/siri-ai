@@ -63,3 +63,9 @@ siri-ai is a product of **[Rabin Apps LLC](https://www.rabinapps.com)**. Release
 [MIT License](LICENSE) · 2026. If it's useful to you, consider sponsoring:
 [PayPal](https://www.paypal.com/donate/?hosted_button_id=YEJ37WF4Q3HPC) ·
 [Buy Me a Coffee](https://buymeacoffee.com/rabinapps).
+
+**More from Rabin Apps LLC:**
+[SupDesk](https://supdesk.app/en) — a customer-support platform for small teams
+(feedback boards, live chat, help center, ticketing) ·
+[kinhin](https://kinhin.dev) — the mindful CI: autoscaling GitHub Actions,
+Gitea/Forgejo/GitLab runners that live on your Mac.

@@ -34,6 +34,15 @@ features:
     details: AX session fixtures replay through the cleaner as regression tests — live-model tests stay opt-in via LIVE_TESTS=1.
 ---
 
+## More from Rabin Apps LLC
+
+- **[SupDesk](https://supdesk.app/en)** — a customer-support platform for small
+  teams: feedback boards, live chat, help center, and ticketing.
+- **[kinhin](https://kinhin.dev)** — the mindful CI: autoscaling GitHub Actions,
+  Gitea/Forgejo/GitLab runners that live on your Mac.
+
+See everything at [rabinapps.com](https://www.rabinapps.com).
+
 siri-ai is from **[Rabin Apps LLC](https://www.rabinapps.com)** · MIT License · 2026 —
 sponsor via [PayPal](https://www.paypal.com/donate/?hosted_button_id=YEJ37WF4Q3HPC) or
 [Buy Me a Coffee](https://buymeacoffee.com/rabinapps) ☕
